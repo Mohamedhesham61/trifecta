@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187230204156",
+    "project_id": "trifecta-28746",
+    "storage_bucket": "trifecta-28746.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187230204156:android:400d59d686347342fae779",
+        "android_client_info": {
+          "package_name": "com.example.trifecta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187230204156-kma0vu5l6gv1btk11g36652kl6ke78i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjiUB6W59t8bwOx52cxpAdMYvMGA1Ryh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187230204156-kma0vu5l6gv1btk11g36652kl6ke78i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

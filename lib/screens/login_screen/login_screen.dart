@@ -136,7 +136,8 @@ class LoginScreen extends StatelessWidget {
                         radius: 100,
                         textColor: primaryColor,
                         text: 'Don\'t have an account? Create account',
-                        onPressed: (){navigateAndFinish(context, const SignUpScreen());}
+                        onPressed: (){
+                          navigateAndFinish(context, const SignUpScreen());}
                       ),
                       const SizedBox(height: 30,),
                     ],

@@ -2,6 +2,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:trifecta/components/components.dart';
 import 'package:trifecta/components/constant.dart';
 import 'package:trifecta/screens/login_screen/login_screen.dart';
@@ -21,6 +22,9 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   String userType = "Applying as?";
   String genderValue = "Gender";
+  bool isChecked = true;
+  String _currText = '';
+
   List<DropdownMenuItem<String>> get dropdownItems{
     List<DropdownMenuItem<String>> menuItems = [
       const DropdownMenuItem(value: "Doctor", child: Text("Doctor")),
@@ -87,6 +91,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(height: 10,),
                         DropdownButtonFormField(
                             decoration:  InputDecoration(
+                              labelText: " User Type",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Poppin'),
+                              prefixIcon: const Icon(Icons.person_pin_outlined),
+                              prefixIconColor: Colors.black,
                               enabledBorder: OutlineInputBorder( //<-- SEE HERE
                                 borderSide: BorderSide(color: primaryColor, width: 1),
                               ),
@@ -173,6 +183,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         const SizedBox(height: 10,),
                         DropdownButtonFormField(
                             decoration: InputDecoration(
+                              labelText: "Gender",
+                              labelStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Poppin'),
+                              prefixIcon: const Icon(Icons.person,),
+                              prefixIconColor: Colors.black,
                               enabledBorder: OutlineInputBorder( //<-- SEE HERE
                                 borderSide: BorderSide(color: primaryColor, width: 1),
                               ),
@@ -216,6 +232,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             prefix: IconBroken.Call
                         ),
                         const SizedBox(height: 10,),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: CheckboxListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            title: Row(
+                              children: [
+                                const Text("I Accept Trifacta"),
+                                GestureDetector(
+                                  child: Text(" Terms & Conditions",
+                                    style: TextStyle(color: primaryColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            value: isChecked,
+
+                            activeColor: primaryColor,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isChecked = newValue!;
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                          ),
+                        ),
                         ConditionalBuilder(
                           condition: state is! SignUpLoadingState,
                           builder: (BuildContext context)=>defaultButton(
@@ -223,20 +264,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             text: 'Create Account',
                             backgroundColor: primaryColor,
                             onPressed: (){
-                              if(formKey.currentState!.validate())
-                                {
-                                  cubit.userRegister(
-                                    name: nameController.text,
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                    phone: phoneController.text,
-                                    applyingAs: userType,
-                                    gender: genderValue
-                                  );
-                                }
+                              if(formKey.currentState!.validate()) {
+                                  if(isChecked){
+                                cubit.userRegister(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                  phone: phoneController.text,
+                                  applyingAs: userType,
+                                  gender: genderValue,
+                                );
+                              } else {
+                                    Fluttertoast.showToast(msg: "Please, agree on the terms & conditions");
+                                  }
+                              }
                             }
                           ),
-                          fallback: (BuildContext context)=>Center(child: CircularProgressIndicator(color: primaryColor,),),
+                          fallback: (BuildContext context) => Center(child: CircularProgressIndicator(color: primaryColor),),
                         ),
 
                         const SizedBox(height: 10,),

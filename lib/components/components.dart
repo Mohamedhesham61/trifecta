@@ -7,10 +7,9 @@ import 'package:trifecta/components/constant.dart';
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 
-void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
+void navigateAndFinish(context, widget) => Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => widget),
-        (route) => false);
+    MaterialPageRoute(builder: (context) => widget));
 
 
 Widget defaultTextFormField({
@@ -85,12 +84,14 @@ Widget defaultButton({
       ),
       child: MaterialButton(
         onPressed: onPressed,
-        child:  Text(
-          text,
-          style: TextStyle(
-            color:textColor,
-            fontSize: 16,
-            fontFamily: 'Poppin',
+        child:  FittedBox(
+          child: Text(
+            text,
+            style: TextStyle(
+              color:textColor,
+              fontSize: 16,
+              fontFamily: 'Poppin',
+            ),
           ),
         ),
       ),
